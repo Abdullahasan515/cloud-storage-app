@@ -79,7 +79,7 @@ export default function App() {
         setMessage(`حدث خطأ أثناء رفع الملف: ${error.message || ""}`);
       } else {
         setStatus("success");
-        setMessage("تم رفع الملف بنجاح ✅");
+        setMessage("تم رفع الملف بنجاح ");
         setFile(null);
         await fetchFiles();
       }
@@ -165,7 +165,14 @@ export default function App() {
                 onDrop={handleDrop}
                 onClick={handleBrowseClick}
               >
-                <div className="dropzone-icon">⬆️</div>
+               <div className="dropzone-icon">
+  <img
+    src="https://example.com/path/to/upload-icon.svg"
+    alt="Upload icon"
+    className="dropzone-icon-img"
+  />
+</div>
+
                 <p className="dropzone-title">
                   اسحب الملف هنا أو{" "}
                   <span className="dropzone-link">اضغط للاختيار</span>
