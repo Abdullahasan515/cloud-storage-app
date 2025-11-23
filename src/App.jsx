@@ -167,11 +167,12 @@ export default function App() {
               >
                <div className="dropzone-icon">
   <img
-    src="https://example.com/path/to/upload-icon.svg"
+    src="https://uxwing.com/wp-content/themes/uxwing/download/web-app-development/upload-cloud-icon.png"
     alt="Upload icon"
     className="dropzone-icon-img"
   />
 </div>
+
 
                 <p className="dropzone-title">
                   اسحب الملف هنا أو{" "}
