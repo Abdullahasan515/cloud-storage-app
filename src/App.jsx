@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { supabase } from "./supabaseClient";
 
 const bucketName = import.meta.env.VITE_SUPABASE_BUCKET || "files";
@@ -10,6 +10,9 @@ export default function App() {
   const [status, setStatus] = useState("idle"); // idle | success | error
   const [filesList, setFilesList] = useState([]);
   const [loadingList, setLoadingList] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     fetchFiles();
@@ -37,6 +40,12 @@ export default function App() {
     }
 
     setLoadingList(false);
+  }
+
+  function handleFileSelected(newFile) {
+    setFile(newFile || null);
+    setStatus("idle");
+    setMessage("");
   }
 
   async function handleUpload(e) {
@@ -88,6 +97,33 @@ export default function App() {
     return data.publicUrl;
   }
 
+  // Drag & Drop handlers
+  function handleDragOver(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  }
+
+  function handleDragLeave(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  }
+
+  function handleDrop(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    const droppedFiles = e.dataTransfer.files;
+    if (droppedFiles && droppedFiles[0]) {
+      handleFileSelected(droppedFiles[0]);
+    }
+  }
+
+  function handleBrowseClick() {
+    fileInputRef.current?.click();
+  }
+
   return (
     <div className="app-shell">
       <header className="app-header">
@@ -95,7 +131,7 @@ export default function App() {
           <div className="logo-circle">📁</div>
           <div className="header-text">
             <h1>Cloud Storage</h1>
-            <span>لرفع وإدارة الملفات السحابية</span>
+            <span> إدارة الملفات السحابية</span>
           </div>
         </div>
       </header>
@@ -106,19 +142,44 @@ export default function App() {
           <section className="upload-column">
             <h2>رفع ملف جديد</h2>
             <p className="hint">
-              اختر ملفاً من جهازك ليتم رفعه إلى مساحة التخزين.
+              اسحب الملف إلى المنطقة أدناه أو اضغط للاختيار من الجهاز.
             </p>
 
             <form className="upload-form" onSubmit={handleUpload}>
-              <label className="file-input-label">
-                <span>الملف</span>
-                <div className="file-input-wrapper">
-                  <input
-                    type="file"
-                    onChange={(e) => setFile(e.target.files[0] || null)}
-                  />
-                </div>
-              </label>
+              {/* input مخفي */}
+              <input
+                ref={fileInputRef}
+                type="file"
+                style={{ display: "none" }}
+                onChange={(e) =>
+                  handleFileSelected(e.target.files && e.target.files[0])
+                }
+              />
+
+              <div
+                className={
+                  "dropzone " + (isDragging ? "dropzone-active" : "")
+                }
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                onClick={handleBrowseClick}
+              >
+                <div className="dropzone-icon">⬆️</div>
+                <p className="dropzone-title">
+                  اسحب الملف هنا أو{" "}
+                  <span className="dropzone-link">اضغط للاختيار</span>
+                </p>
+                <p className="dropzone-subtitle">
+                  يدعم ملفاً واحداً في كل مرة. (صور، PDF، ملفات أخرى...)
+                </p>
+
+                {file && (
+                  <p className="file-selected">
+                    الملف المحدد: <span>{file.name}</span>
+                  </p>
+                )}
+              </div>
 
               <button type="submit" disabled={uploading}>
                 {uploading ? "جارٍ الرفع..." : "رفع الملف"}
