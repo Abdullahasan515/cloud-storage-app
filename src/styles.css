@@ -290,6 +290,11 @@ button:hover:not(:disabled) {
   color: #4f46e5;
   white-space: nowrap;
 }
+.dropzone-icon-img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
 
 .file-link:hover {
   text-decoration: underline;
