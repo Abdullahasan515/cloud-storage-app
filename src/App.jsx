@@ -95,7 +95,7 @@ export default function App() {
           <div className="logo-circle">📁</div>
           <div className="header-text">
             <h1>Cloud Storage</h1>
-            <span>لوحة بسيطة لرفع وإدارة الملفات السحابية</span>
+            <span>لرفع وإدارة الملفات السحابية</span>
           </div>
         </div>
       </header>
