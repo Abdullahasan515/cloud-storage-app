@@ -7,7 +7,7 @@ body {
   padding: 0;
   direction: rtl;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #f3f4f6; /* رمادي خفيف كحيادي */
+  background: #f5f5f7; /* خلفية هادئة فاتحة */
   color: #0f172a;
 }
 
@@ -17,16 +17,16 @@ body {
   flex-direction: column;
 }
 
-/* هيدر أزرق */
+/* هيدر أبيض مع لمسة أزرق خفيفة */
 .app-header {
-  background: #2563eb; /* الأزرق الرئيسي */
-  color: #ffffff;
-  padding: 16px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .app-header-inner {
   max-width: 980px;
   margin: 0 auto;
+  padding: 14px 20px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -35,25 +35,27 @@ body {
 .logo-circle {
   width: 40px;
   height: 40px;
-  border-radius: 12px;
-  background: #1d4ed8;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #4f46e5, #6366f1); /* أزرق ناعم */
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
+  color: #ffffff;
 }
 
 .header-text h1 {
   margin: 0;
-  font-size: 1.4rem;
+  font-size: 1.35rem;
+  color: #111827;
 }
 
 .header-text span {
   font-size: 0.9rem;
-  opacity: 0.9;
+  color: #6b7280;
 }
 
-/* كرت أبيض في النص */
+/* الكارت الرئيسي */
 
 .app-main {
   flex: 1;
@@ -63,20 +65,20 @@ body {
 }
 
 .app-card {
-  background: #ffffff; /* الأبيض كلون رئيسي */
+  background: #ffffff;
   max-width: 980px;
   width: 100%;
   border-radius: 24px;
   border: 1px solid #e5e7eb;
-  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.08);
-  padding: 20px 20px 22px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+  padding: 20px 22px 24px;
   display: grid;
   gap: 20px;
 }
 
 @media (min-width: 900px) {
   .app-card {
-    grid-template-columns: 0.95fr 1.05fr;
+    grid-template-columns: 1fr 1.1fr;
   }
 }
 
@@ -92,29 +94,65 @@ body {
   color: #6b7280;
 }
 
-/* فورم الرفع */
+/* فورم الرفع + دروب زون */
 
 .upload-form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
-.file-input-label span {
-  display: block;
-  font-size: 0.9rem;
-  margin-bottom: 4px;
-}
+/* Dropzone */
 
-.file-input-wrapper {
-  padding: 10px 12px;
-  border-radius: 14px;
-  border: 1px dashed #2563eb;
+.dropzone {
+  border-radius: 18px;
+  border: 1px dashed #cbd5f5;
   background: #f9fafb;
+  padding: 18px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease,
+    box-shadow 0.15s ease, transform 0.08s ease;
 }
 
-.file-input-wrapper input[type="file"] {
-  width: 100%;
+.dropzone-active {
+  border-color: #4f46e5;
+  background: #eef2ff;
+  box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.1);
+  transform: translateY(-1px);
+}
+
+.dropzone-icon {
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+.dropzone-title {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #111827;
+}
+
+.dropzone-link {
+  color: #4f46e5;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.dropzone-subtitle {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.file-selected {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: #4b5563;
+}
+
+.file-selected span {
+  font-weight: 500;
 }
 
 /* أزرار */
@@ -129,7 +167,7 @@ button {
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: 600;
-  background: #2563eb; /* الأزرق */
+  background: #4f46e5; /* أزرق ناعم */
   color: #ffffff;
   transition: background 0.12s ease, transform 0.08s ease, box-shadow 0.12s ease;
 }
@@ -142,21 +180,21 @@ button:disabled {
 }
 
 button:hover:not(:disabled) {
-  background: #1d4ed8;
+  background: #4338ca;
   transform: translateY(-1px);
-  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.25);
 }
 
 .ghost-btn {
-  background: transparent;
-  color: #2563eb;
-  border: 1px solid #cbd5f5;
+  background: #f9fafb;
+  color: #4f46e5;
+  border: 1px solid #d1d5f5;
   box-shadow: none;
   padding-inline: 14px;
 }
 
 .ghost-btn:hover:not(:disabled) {
-  background: #eff6ff;
+  background: #eef2ff;
   transform: none;
   box-shadow: none;
 }
@@ -164,7 +202,7 @@ button:hover:not(:disabled) {
 /* الرسائل */
 
 .message {
-  margin-top: 10px;
+  margin-top: 4px;
   font-size: 0.88rem;
 }
 
@@ -201,7 +239,7 @@ button:hover:not(:disabled) {
   justify-content: space-between;
   gap: 10px;
   padding: 8px 10px;
-  border-radius: 14px;
+  border-radius: 16px;
   border: 1px solid #e5e7eb;
   background: #f9fafb;
 }
@@ -216,9 +254,9 @@ button:hover:not(:disabled) {
 .file-icon {
   width: 32px;
   height: 32px;
-  border-radius: 10px;
-  background: #2563eb;
-  color: #ffffff;
+  border-radius: 12px;
+  background: #eef2ff;
+  color: #4f46e5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -243,13 +281,13 @@ button:hover:not(:disabled) {
 
 .file-meta {
   font-size: 0.78rem;
-  color: #6b7280;
+  color: #9ca3af;
 }
 
 .file-link {
   font-size: 0.85rem;
   text-decoration: none;
-  color: #2563eb;
+  color: #4f46e5;
   white-space: nowrap;
 }
 
