@@ -291,8 +291,8 @@ button:hover:not(:disabled) {
   white-space: nowrap;
 }
 .dropzone-icon-img {
-  width: 40px;
-  height: 40px;
+  width: 20px !important;
+  height: 20px !important;
   object-fit: contain;
 }
 
